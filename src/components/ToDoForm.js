@@ -7,6 +7,9 @@ export default function ToDoForm(props) {
   const [todo, setTodo] = useState([]);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDate, setTodoDate] = useState("");
+  const [todoTask, setTodoTask] = useState("");
+  const [todoPriority, setTodoPriority] = useState("");
+  const [taskList, setTaskList] = useState([]);
 
   const addTodo = (event) => {
     event.preventDefault();
@@ -26,6 +29,34 @@ export default function ToDoForm(props) {
     const todoId = e.target.parentNode.parentNode.dataset.nav;
     const newTodos = todo.filter((td) => td.id !== todoId);
     setTodo(newTodos);
+  };
+
+  const handleTaskFormSubmit = (e) => {
+    e.preventDefault();
+    setTaskList([
+      ...taskList,
+      {
+        name: todoTask,
+        priority: todoPriority,
+        id: nextId(),
+      },
+    ]);
+    const id = e.target.dataset.nav;
+    const index = todo.map((td) => td.id).indexOf(id);
+    const newTodos = [...todo];
+    newTodos[index].tasks = taskList;
+    setTodo(newTodos);
+    setTodoTask("");
+    setTodoPriority("");
+  };
+
+  const handleTaskFormChange = (e) => {
+    if (e.target.id === "task") {
+      setTodoTask(e.target.value);
+    }
+    if (e.target.id === "priority") {
+      setTodoPriority(e.target.value);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +96,12 @@ export default function ToDoForm(props) {
           </Col>
         </Row>
       </Container>
-      <CardContainer todos={todo} deleteTodo={deleteTodo} />
+      <CardContainer
+        todos={todo}
+        deleteTodo={deleteTodo}
+        handleTaskFormSubmit={handleTaskFormSubmit}
+        handleTaskFormChange={handleTaskFormChange}
+      />
     </>
   );
 }

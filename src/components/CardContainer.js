@@ -4,10 +4,22 @@ import TaskFormModal from "./TaskFormModal";
 import TaskListModal from "./TaskListModal";
 
 export default function CardContainer(props) {
+  console.log(props);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [showTaskList, setShowTaskList] = useState(false);
+  const [taskFormTitle, setTaskFormTitle] = useState("");
+  const [taskFormID, setTaskFormID] = useState("");
   const handleTaskFormClose = () => setShowTaskForm(false);
-  const handleTaskFormShow = () => setShowTaskForm(true);
+
+  const handleTaskFormShow = (e) => {
+    const currentTodoId = e.target.parentNode.parentNode.dataset.nav;
+    setTaskFormID(currentTodoId);
+    const currentTodo = props.todos.filter((td) => {
+      return td.id === currentTodoId;
+    });
+    setShowTaskForm(true);
+    setTaskFormTitle(currentTodo[0].title);
+  };
 
   const handleTaskListClose = () => setShowTaskList(false);
   const handleTaskListShow = () => setShowTaskList(true);
@@ -42,7 +54,14 @@ export default function CardContainer(props) {
           <div className="text-center">{todoCard}</div>
         </Col>
       </Row>
-      <TaskFormModal show={showTaskForm} handleClose={handleTaskFormClose} />
+      <TaskFormModal
+        show={showTaskForm}
+        handleClose={handleTaskFormClose}
+        title={taskFormTitle}
+        handleSubmit={props.handleTaskFormSubmit}
+        buttonNav={taskFormID}
+        handleChange={props.handleTaskFormChange}
+      />
       <TaskListModal show={showTaskList} handleClose={handleTaskListClose} />
     </Container>
   );
