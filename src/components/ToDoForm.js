@@ -22,9 +22,15 @@ export default function ToDoForm(props) {
     setTodoDate("");
   };
 
-  //   useEffect(() => {
-  //     console.log(todo);
-  //   });
+  const deleteTodo = (e) => {
+    const todoId = e.target.parentNode.parentNode.dataset.nav;
+    const newTodos = todo.filter((td) => td.id !== todoId);
+    setTodo(newTodos);
+  };
+
+  useEffect(() => {
+    console.log(todo);
+  });
 
   return (
     <>
@@ -59,7 +65,7 @@ export default function ToDoForm(props) {
           </Col>
         </Row>
       </Container>
-      <CardContainer todos={todo} />
+      <CardContainer todos={todo} deleteTodo={deleteTodo} />
     </>
   );
 }
