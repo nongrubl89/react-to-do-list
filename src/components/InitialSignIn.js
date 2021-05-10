@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ToDoForm from "./ToDoForm";
+import { signInWithGoogle } from "../services/firebase";
 
 export default function InitialSignIn() {
   const [showForm, setShowForm] = useState(false);
@@ -15,7 +16,7 @@ export default function InitialSignIn() {
         className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
       >
         <Col xs={{ span: 6, offset: 3 }}>
-          <Button>Sign in with Google</Button>
+          <Button onClick={signInWithGoogle}>Sign in with Google</Button>
         </Col>
       </Row>
       <Row
