@@ -5,12 +5,10 @@ import TaskListModal from "./TaskListModal";
 
 export default function CardContainer(props) {
   console.log(props);
-  const [showTaskForm, setShowTaskForm] = useState(false);
   const [showTaskList, setShowTaskList] = useState(false);
   const [taskFormTitle, setTaskFormTitle] = useState("");
   const [taskFormID, setTaskFormID] = useState("");
   const [taskListID, setTaskListID] = useState("");
-  const handleTaskFormClose = () => setShowTaskForm(false);
 
   const handleTaskFormShow = (e) => {
     const currentTodoId = e.target.parentNode.parentNode.dataset.nav;
@@ -18,7 +16,7 @@ export default function CardContainer(props) {
     const currentTodo = props.todos.filter((td) => {
       return td.id === currentTodoId;
     });
-    setShowTaskForm(true);
+    props.setShowTaskForm(true);
     setTaskFormTitle(currentTodo[0].title);
   };
 
@@ -31,7 +29,7 @@ export default function CardContainer(props) {
 
   const todoCard = props.todos.map((todo) => (
     <Card
-      style={{ width: "20rem" }}
+      style={{ width: "21rem" }}
       key={todo.id}
       className="m-3"
       data-nav={todo.id}
@@ -45,7 +43,7 @@ export default function CardContainer(props) {
         <Button className="mr-2" variant="primary" onClick={props.deleteTodo}>
           Delete
         </Button>
-        <Button className="mt-2" variant="primary" onClick={handleTaskListShow}>
+        <Button variant="primary" onClick={handleTaskListShow}>
           Show tasks
         </Button>
       </Card.Body>
@@ -60,8 +58,8 @@ export default function CardContainer(props) {
         </Col>
       </Row>
       <TaskFormModal
-        show={showTaskForm}
-        handleClose={handleTaskFormClose}
+        show={props.showTaskForm}
+        handleClose={props.handleTaskFormClose}
         title={taskFormTitle}
         handleSubmit={props.handleTaskFormSubmit}
         buttonNav={taskFormID}

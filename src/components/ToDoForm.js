@@ -10,6 +10,8 @@ export default function ToDoForm() {
   const [todoTask, setTodoTask] = useState("");
   const [todoPriority, setTodoPriority] = useState("");
   const [taskList, setTaskList] = useState([]);
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const handleTaskFormClose = () => setShowTaskForm(false);
 
   const addTodo = (event) => {
     event.preventDefault();
@@ -36,6 +38,16 @@ export default function ToDoForm() {
   const handleTaskFormSubmit = (event) => {
     event.preventDefault();
     const todoId = event.target.dataset.nav;
+    let priorityNumber;
+    if (todoPriority === "High") {
+      priorityNumber = 1;
+    }
+    if (todoPriority === "Medium") {
+      priorityNumber = 2;
+    }
+    if (todoPriority === "Low") {
+      priorityNumber = 3;
+    }
     setTaskList([
       ...taskList,
       {
@@ -43,18 +55,12 @@ export default function ToDoForm() {
         priority: todoPriority,
         parentId: todoId,
         uniqueId: nextId(),
+        pNumber: priorityNumber,
       },
     ]);
+    handleTaskFormClose();
     setTodoTask("");
     setTodoPriority("");
-    // const todoId = e.target.dataset.nav;
-    // const index = todo.map((td) => td.id).indexOf(todoId);
-    // todo[index].tasks.concat(taskList);
-    // const toBeAdded = { tasks: taskList };
-    // const newArray = todo.map((td) =>
-    //   td.id === todoId ? { ...td, ...toBeAdded } : td
-    // );
-    // console.log(newArray);
   };
 
   const handleTaskFormChange = (e) => {
@@ -66,10 +72,9 @@ export default function ToDoForm() {
     }
   };
 
-  //   useEffect(() => {
-  //     console.log("tL", taskList);
-  //     console.log("td", todo);
-  //   });
+  useEffect(() => {
+    console.log("tL", taskList);
+  });
 
   return (
     <>
@@ -112,6 +117,9 @@ export default function ToDoForm() {
         todoTask={todoTask}
         todoPriority={todoPriority}
         tasks={taskList}
+        handleTaskFormClose={handleTaskFormClose}
+        showTaskForm={showTaskForm}
+        setShowTaskForm={setShowTaskForm}
       />
     </>
   );
