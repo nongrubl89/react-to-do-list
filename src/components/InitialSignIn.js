@@ -15,14 +15,14 @@ export default function InitialSignIn() {
       <Row
         className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
       >
-        <Col xs={{ span: 6, offset: 3 }}>
+        <Col xs={6} className="d-flex justify-content-center">
           <Button onClick={signInWithGoogle}>Sign in with Google</Button>
         </Col>
       </Row>
       <Row
         className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
       >
-        <Col xs={{ span: 6, offset: 3 }} className="justify-content-center">
+        <Col xs={6} className="d-flex justify-content-center">
           <Button onClick={handleGuest}>Continue as guest</Button>
         </Col>
       </Row>

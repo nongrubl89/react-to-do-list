@@ -17,6 +17,7 @@ export default function TaskFormModal(props) {
               type="text"
               placeholder="Enter task name"
               onChange={props.handleChange}
+              value={props.task}
             />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlSelect1">
@@ -25,7 +26,9 @@ export default function TaskFormModal(props) {
               as="select"
               id="priority"
               onChange={props.handleChange}
+              value={props.priority}
             >
+              <option>Select Priority</option>
               <option>High</option>
               <option>Medium</option>
               <option>Low</option>

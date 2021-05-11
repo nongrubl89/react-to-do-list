@@ -9,6 +9,7 @@ export default function CardContainer(props) {
   const [showTaskList, setShowTaskList] = useState(false);
   const [taskFormTitle, setTaskFormTitle] = useState("");
   const [taskFormID, setTaskFormID] = useState("");
+  const [taskListID, setTaskListID] = useState("");
   const handleTaskFormClose = () => setShowTaskForm(false);
 
   const handleTaskFormShow = (e) => {
@@ -22,7 +23,11 @@ export default function CardContainer(props) {
   };
 
   const handleTaskListClose = () => setShowTaskList(false);
-  const handleTaskListShow = () => setShowTaskList(true);
+  const handleTaskListShow = (e) => {
+    const currentTodoId = e.target.parentNode.parentNode.dataset.nav;
+    setTaskListID(currentTodoId);
+    setShowTaskList(true);
+  };
 
   const todoCard = props.todos.map((todo) => (
     <Card
@@ -61,8 +66,15 @@ export default function CardContainer(props) {
         handleSubmit={props.handleTaskFormSubmit}
         buttonNav={taskFormID}
         handleChange={props.handleTaskFormChange}
+        task={props.todoTask}
+        priority={props.priority}
       />
-      <TaskListModal show={showTaskList} handleClose={handleTaskListClose} />
+      <TaskListModal
+        show={showTaskList}
+        handleClose={handleTaskListClose}
+        currentId={taskListID}
+        tasks={props.tasks}
+      />
     </Container>
   );
 }

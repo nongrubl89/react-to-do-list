@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import nextId from "react-id-generator";
 import CardContainer from "./CardContainer";
 
-export default function ToDoForm(props) {
+export default function ToDoForm() {
   const [todo, setTodo] = useState([]);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDate, setTodoDate] = useState("");
@@ -28,26 +28,33 @@ export default function ToDoForm(props) {
   const deleteTodo = (e) => {
     const todoId = e.target.parentNode.parentNode.dataset.nav;
     const newTodos = todo.filter((td) => td.id !== todoId);
+    const newTasks = taskList.filter((task) => task.id !== todoId);
+    setTaskList(newTasks);
     setTodo(newTodos);
   };
 
-  const handleTaskFormSubmit = (e) => {
-    e.preventDefault();
+  const handleTaskFormSubmit = (event) => {
+    event.preventDefault();
+    const todoId = event.target.dataset.nav;
     setTaskList([
       ...taskList,
       {
         name: todoTask,
         priority: todoPriority,
-        id: nextId(),
+        parentId: todoId,
+        uniqueId: nextId(),
       },
     ]);
-    const id = e.target.dataset.nav;
-    const index = todo.map((td) => td.id).indexOf(id);
-    const newTodos = [...todo];
-    newTodos[index].tasks = taskList;
-    setTodo(newTodos);
     setTodoTask("");
     setTodoPriority("");
+    // const todoId = e.target.dataset.nav;
+    // const index = todo.map((td) => td.id).indexOf(todoId);
+    // todo[index].tasks.concat(taskList);
+    // const toBeAdded = { tasks: taskList };
+    // const newArray = todo.map((td) =>
+    //   td.id === todoId ? { ...td, ...toBeAdded } : td
+    // );
+    // console.log(newArray);
   };
 
   const handleTaskFormChange = (e) => {
@@ -59,9 +66,10 @@ export default function ToDoForm(props) {
     }
   };
 
-  useEffect(() => {
-    console.log(todo);
-  });
+  //   useEffect(() => {
+  //     console.log("tL", taskList);
+  //     console.log("td", todo);
+  //   });
 
   return (
     <>
@@ -101,6 +109,9 @@ export default function ToDoForm(props) {
         deleteTodo={deleteTodo}
         handleTaskFormSubmit={handleTaskFormSubmit}
         handleTaskFormChange={handleTaskFormChange}
+        todoTask={todoTask}
+        todoPriority={todoPriority}
+        tasks={taskList}
       />
     </>
   );
