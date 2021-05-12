@@ -1,5 +1,5 @@
-import { React, useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { React, useState } from "react";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import nextId from "react-id-generator";
 import CardContainer from "./CardContainer";
 import SearchBar from "./SearchBar";
@@ -118,68 +118,66 @@ export default function ToDoForm() {
 
   return (
     <>
-      <Container>
-        <Row className="justify-content-md-center pt-3">
-          <Col md={6}>
-            <Form onSubmit={addTodo} className="mb-3">
-              <Form.Group controlId="formToDoTitle">
-                <Form.Label>To-Do</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter to-do"
-                  value={todoTitle}
-                  onChange={(e) => setTodoTitle(e.target.value)}
-                />
-                <Form.Text className="text-muted">
-                  ex: clean the house, grocery shop
-                </Form.Text>
-              </Form.Group>
-              <Form.Group controlId="formDueDate">
-                <Form.Label>Due Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={todoDate}
-                  onChange={(e) => setTodoDate(e.target.value)}
-                />
-              </Form.Group>
-              <Button
-                variant="primary"
-                type="submit"
-                className="button-block mr-1"
-              >
-                Submit
-              </Button>
-              <Button
-                variant="primary"
-                className="button-block"
-                onClick={() => setShowSearch(!showSearch)}
-              >
-                Search List
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-search ml-2 mb-1"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
-              </Button>
-            </Form>
-            {showSearch ? (
-              <SearchBar
-                keyword={keyword}
-                setKeyword={setKeyword}
-                searchTodos={searchTodos}
-                clearSearch={clearSearch}
+      <Row className="justify-content-md-center pt-3">
+        <Col md={5}>
+          <Form onSubmit={addTodo} className="mb-3">
+            <Form.Group controlId="formToDoTitle">
+              <Form.Label>To-Do</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter to-do"
+                value={todoTitle}
+                onChange={(e) => setTodoTitle(e.target.value)}
               />
-            ) : (
-              ""
-            )}
-          </Col>
-        </Row>
-      </Container>
+              <Form.Text className="text-muted">
+                ex: clean the house, grocery shop
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formDueDate">
+              <Form.Label>Due Date</Form.Label>
+              <Form.Control
+                type="date"
+                value={todoDate}
+                onChange={(e) => setTodoDate(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+              className="button-block mr-1"
+            >
+              Submit
+            </Button>
+            <Button
+              variant="outline-primary"
+              className="button-block"
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              Search List
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search ml-2 mb-1"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </Button>
+          </Form>
+          {showSearch ? (
+            <SearchBar
+              keyword={keyword}
+              setKeyword={setKeyword}
+              searchTodos={searchTodos}
+              clearSearch={clearSearch}
+            />
+          ) : (
+            ""
+          )}
+        </Col>
+      </Row>
       <CardContainer
         todos={activeSearch ? filteredTodos : todo}
         deleteTodo={deleteTodo}

@@ -30,7 +30,7 @@ export default function CardContainer(props) {
     <Card
       style={{ width: "21rem" }}
       key={todo.id}
-      className="m-3"
+      className="m-3 bg-white shadow-sm rounded"
       data-nav={todo.id}
     >
       <Card.Body>
@@ -50,7 +50,7 @@ export default function CardContainer(props) {
   ));
 
   return (
-    <Container>
+    <>
       <Row className="justify-content-md-center pt-3">
         <Col md={6} className="d-flex justify-content-center">
           <div className="text-center">{todoCard}</div>
@@ -74,6 +74,6 @@ export default function CardContainer(props) {
         deleteTask={props.deleteTask}
         markTaskComplete={props.markTaskComplete}
       />
-    </Container>
+    </>
   );
 }

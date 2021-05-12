@@ -11,7 +11,7 @@ export default function InitialSignIn() {
     setInitialDivShow(false);
   };
   return (
-    <Container>
+    <Container fluid className="min-vh-100 min-vw-100 bg-light">
       <Row
         className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
       >

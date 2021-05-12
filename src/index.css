@@ -1,3 +1,12 @@
+* {
+  font-family: "Lato" !important;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  background-color: #343a40;
+}
+
 .btn-primary-outline {
   background-color: transparent;
   border-color: transparent;
@@ -11,4 +20,11 @@
   background-color: transparent;
   border-color: transparent;
   box-shadow: none;
+}
+
+.card,
+.card-body,
+.card-text,
+.card-title {
+  background-color: white;
 }
