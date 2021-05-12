@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import nextId from "react-id-generator";
 import CardContainer from "./CardContainer";
+import SearchBar from "./SearchBar";
 
 export default function ToDoForm() {
   const [todo, setTodo] = useState([]);
@@ -11,10 +12,18 @@ export default function ToDoForm() {
   const [todoPriority, setTodoPriority] = useState("");
   const [taskList, setTaskList] = useState([]);
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [filteredTodos, setFilteredTodos] = useState([]);
   const handleTaskFormClose = () => setShowTaskForm(false);
+  const clearSearch = (e) => setActiveSearch(false);
 
   const addTodo = (event) => {
     event.preventDefault();
+    if (!todoTitle || !todoDate) {
+      alert("Please fill in both fields");
+      return;
+    }
     setTodo([
       ...todo,
       {
@@ -35,8 +44,20 @@ export default function ToDoForm() {
     setTodo(newTodos);
   };
 
+  const searchTodos = (e) => {
+    e.preventDefault();
+    setActiveSearch(true);
+    const searchedArray = todo.filter((td) => td.title === keyword);
+    setFilteredTodos(searchedArray);
+    console.log(keyword);
+  };
+
   const handleTaskFormSubmit = (event) => {
     event.preventDefault();
+    if (!todoTask || !todoPriority) {
+      alert("Please fill in both fields");
+      return;
+    }
     const todoId = event.target.dataset.nav;
     let priorityNumber;
     if (todoPriority === "High") {
@@ -87,10 +108,9 @@ export default function ToDoForm() {
     setTaskList(newTasks);
   };
 
-  useEffect(() => {
-    console.log("tL", taskList);
-    console.log(todo);
-  });
+  //   useEffect(() => {
+  //     console.log(keyword);
+  //   });
 
   return (
     <>
@@ -122,11 +142,17 @@ export default function ToDoForm() {
                 Submit
               </Button>
             </Form>
+            <SearchBar
+              keyword={keyword}
+              setKeyword={setKeyword}
+              searchTodos={searchTodos}
+              clearSearch={clearSearch}
+            />
           </Col>
         </Row>
       </Container>
       <CardContainer
-        todos={todo}
+        todos={activeSearch ? filteredTodos : todo}
         deleteTodo={deleteTodo}
         handleTaskFormSubmit={handleTaskFormSubmit}
         handleTaskFormChange={handleTaskFormChange}

@@ -62,7 +62,12 @@ export default function TaskFormModal(props) {
   //   console.log(createTaskList);
 
   return (
-    <Modal show={props.show} onHide={props.handleClose} animation={true}>
+    <Modal
+      show={props.show}
+      onHide={props.handleClose}
+      animation={true}
+      centered
+    >
       <Modal.Header closeButton>
         <Modal.Title>Task List</Modal.Title>
       </Modal.Header>
