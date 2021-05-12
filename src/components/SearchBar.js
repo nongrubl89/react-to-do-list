@@ -5,7 +5,6 @@ export default function SearchBar(props) {
   return (
     <Form>
       <Form.Group controlId="search">
-        <Form.Label>Search To-do list</Form.Label>
         <Form.Control
           type="text"
           placeholder="Search"
@@ -13,7 +12,12 @@ export default function SearchBar(props) {
           onChange={(e) => props.setKeyword(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={props.searchTodos}>
+      <Button
+        variant="primary"
+        type="submit"
+        onClick={props.searchTodos}
+        className="mr-1"
+      >
         Search
       </Button>
       <Button variant="primary" onClick={props.clearSearch}>

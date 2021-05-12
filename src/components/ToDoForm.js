@@ -15,8 +15,12 @@ export default function ToDoForm() {
   const [keyword, setKeyword] = useState("");
   const [activeSearch, setActiveSearch] = useState(false);
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [showSearch, setShowSearch] = useState(false);
   const handleTaskFormClose = () => setShowTaskForm(false);
-  const clearSearch = (e) => setActiveSearch(false);
+  const clearSearch = () => {
+    setActiveSearch(false);
+    setShowSearch(false);
+  };
 
   const addTodo = (event) => {
     event.preventDefault();
@@ -117,7 +121,7 @@ export default function ToDoForm() {
       <Container>
         <Row className="justify-content-md-center pt-3">
           <Col md={6}>
-            <Form onSubmit={addTodo}>
+            <Form onSubmit={addTodo} className="mb-3">
               <Form.Group controlId="formToDoTitle">
                 <Form.Label>To-Do</Form.Label>
                 <Form.Control
@@ -138,16 +142,41 @@ export default function ToDoForm() {
                   onChange={(e) => setTodoDate(e.target.value)}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                className="button-block mr-1"
+              >
                 Submit
               </Button>
+              <Button
+                variant="primary"
+                className="button-block"
+                onClick={() => setShowSearch(!showSearch)}
+              >
+                Search List
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-search ml-2 mb-1"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+              </Button>
             </Form>
-            <SearchBar
-              keyword={keyword}
-              setKeyword={setKeyword}
-              searchTodos={searchTodos}
-              clearSearch={clearSearch}
-            />
+            {showSearch ? (
+              <SearchBar
+                keyword={keyword}
+                setKeyword={setKeyword}
+                searchTodos={searchTodos}
+                clearSearch={clearSearch}
+              />
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
       </Container>
