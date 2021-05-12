@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 export default function TaskFormModal(props) {
-  console.log(props);
+  //   console.log(props);
   return (
     <Modal show={props.show} onHide={props.handleClose} animation={true}>
       <Modal.Header closeButton>

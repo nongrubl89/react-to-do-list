@@ -4,7 +4,6 @@ import TaskFormModal from "./TaskFormModal";
 import TaskListModal from "./TaskListModal";
 
 export default function CardContainer(props) {
-  console.log(props);
   const [showTaskList, setShowTaskList] = useState(false);
   const [taskFormTitle, setTaskFormTitle] = useState("");
   const [taskFormID, setTaskFormID] = useState("");
@@ -72,6 +71,8 @@ export default function CardContainer(props) {
         handleClose={handleTaskListClose}
         currentId={taskListID}
         tasks={props.tasks}
+        deleteTask={props.deleteTask}
+        markTaskComplete={props.markTaskComplete}
       />
     </Container>
   );

@@ -30,7 +30,7 @@ export default function ToDoForm() {
   const deleteTodo = (e) => {
     const todoId = e.target.parentNode.parentNode.dataset.nav;
     const newTodos = todo.filter((td) => td.id !== todoId);
-    const newTasks = taskList.filter((task) => task.id !== todoId);
+    const newTasks = taskList.filter((task) => task.parentId !== todoId);
     setTaskList(newTasks);
     setTodo(newTodos);
   };
@@ -56,6 +56,7 @@ export default function ToDoForm() {
         parentId: todoId,
         uniqueId: nextId(),
         pNumber: priorityNumber,
+        complete: false,
       },
     ]);
     handleTaskFormClose();
@@ -72,8 +73,23 @@ export default function ToDoForm() {
     }
   };
 
+  const deleteTask = (e) => {
+    const taskId = e.target.dataset.nav;
+    const newTasks = taskList.filter((task) => task.uniqueId !== taskId);
+    setTaskList(newTasks);
+  };
+
+  const markTaskComplete = (e) => {
+    const taskId = e.target.dataset.nav;
+    const newTasks = taskList.map((task) =>
+      task.uniqueId === taskId ? { ...task, complete: true } : task
+    );
+    setTaskList(newTasks);
+  };
+
   useEffect(() => {
     console.log("tL", taskList);
+    console.log(todo);
   });
 
   return (
@@ -120,6 +136,8 @@ export default function ToDoForm() {
         handleTaskFormClose={handleTaskFormClose}
         showTaskForm={showTaskForm}
         setShowTaskForm={setShowTaskForm}
+        markTaskComplete={markTaskComplete}
+        deleteTask={deleteTask}
       />
     </>
   );
