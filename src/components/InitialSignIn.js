@@ -1,32 +1,34 @@
-import { React, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import ToDoForm from "./ToDoForm";
-import { signInWithGoogle } from "../services/firebase";
+import React, { useContext } from "react";
+import "../App.css";
+import firebase from "firebase";
+import { FirebaseAuth } from "react-firebaseui";
+import { AuthContext } from "../services/context";
+import { Redirect } from "react-router-dom";
 
 export default function InitialSignIn() {
-  const [showForm, setShowForm] = useState(false);
-  const [initialDivShow, setInitialDivShow] = useState(true);
-  const handleGuest = () => {
-    setShowForm(true);
-    setInitialDivShow(false);
+  //get the user state from the context
+  const { user } = useContext(AuthContext);
+
+  //this is our config for FirebaseAuth
+  const uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false,
+    },
   };
+
+  //if user exists or signed in, we redirect the page to home, else display the sign in methods with FirebaseAuth
   return (
-    <Container fluid className="min-vh-100 min-vw-100 bg-light">
-      <Row
-        className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
-      >
-        <Col xs={6} className="d-flex justify-content-center">
-          <Button onClick={signInWithGoogle}>Sign in with Google</Button>
-        </Col>
-      </Row>
-      <Row
-        className={initialDivShow ? "justify-content-md-center pt-3" : "d-none"}
-      >
-        <Col xs={6} className="d-flex justify-content-center">
-          <Button onClick={handleGuest}>Continue as guest</Button>
-        </Col>
-      </Row>
-      {showForm ? <ToDoForm /> : ""}
-    </Container>
+    <div>
+      {!!user ? (
+        <Redirect to={{ pathname: "/" }} />
+      ) : (
+        <div>
+          <p>Please Sign In</p>
+          <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        </div>
+      )}
+    </div>
   );
 }
