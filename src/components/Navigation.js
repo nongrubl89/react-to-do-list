@@ -2,7 +2,7 @@ import { React, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import ToDoForm from "./ToDoForm";
 import { AuthContext } from "../services/context.js";
-import app from "../services/config";
+import { app } from "../services/config";
 
 export default function Navigation() {
   const { user } = useContext(AuthContext);

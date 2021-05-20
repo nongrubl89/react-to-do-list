@@ -1,10 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import nextId from "react-id-generator";
 import CardContainer from "./CardContainer";
 import SearchBar from "./SearchBar";
+import { database } from "../services/config";
+import { AuthContext } from "../services/context.js";
 
 export default function ToDoForm() {
+  const { user } = useContext(AuthContext);
   const [todo, setTodo] = useState([]);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDate, setTodoDate] = useState("");
@@ -28,10 +31,15 @@ export default function ToDoForm() {
       alert("Please fill in both fields");
       return;
     }
+    let id = nextId();
+    if (!!user) {
+      const todoDoc = database.collection(user.displayName).doc(todoTitle);
+      todoDoc.set({ title: todoTitle, date: todoDate, id: id });
+    }
     setTodo([
       ...todo,
       {
-        id: nextId(),
+        id: id,
         title: todoTitle,
         date: todoDate,
       },
@@ -112,9 +120,17 @@ export default function ToDoForm() {
     setTaskList(newTasks);
   };
 
-  //   useEffect(() => {
-  //     console.log(keyword);
-  //   });
+  useEffect(() => {
+    async function fetchData() {
+      if (!!user) {
+        const collection = await database.collection(user.displayName).get();
+        const todoArray = [];
+        collection.forEach((doc) => todoArray.push(doc.data()));
+        setTodo(todoArray);
+      }
+    }
+    fetchData();
+  });
 
   return (
     <>
@@ -159,7 +175,7 @@ export default function ToDoForm() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-search ml-2 mb-1"
+                className="bi bi-search ml-2 mb-1"
                 viewBox="0 0 16 16"
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
