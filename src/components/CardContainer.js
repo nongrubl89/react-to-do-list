@@ -50,7 +50,7 @@ export default function CardContainer(props) {
   ));
 
   return (
-    <Container className="card-container" fluid>
+    <>
       <Row className="justify-content-md-center pt-3">
         <Col md={6} className="d-flex justify-content-center">
           <div className="text-center">{todoCard}</div>
@@ -74,6 +74,6 @@ export default function CardContainer(props) {
         deleteTask={props.deleteTask}
         markTaskComplete={props.markTaskComplete}
       />
-    </Container>
+    </>
   );
 }

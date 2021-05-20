@@ -150,14 +150,13 @@ export default function ToDoForm() {
               viewBox="0 0 1440 320"
               className="position-absolute"
             >
-                
               <path
                 fill="#ef476f"
                 fill-opacity="1"
-                d="M0,288L48,256C96,224,192,160,288,149.3C384,139,480,181,576,208C672,235,768,245,864,213.3C960,181,1056,107,1152,80C1248,53,1344,75,1392,85.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+                d="M0,128L21.8,122.7C43.6,117,87,107,131,96C174.5,85,218,75,262,90.7C305.5,107,349,149,393,170.7C436.4,192,480,192,524,181.3C567.3,171,611,149,655,144C698.2,139,742,149,785,154.7C829.1,160,873,160,916,144C960,128,1004,96,1047,117.3C1090.9,139,1135,213,1178,245.3C1221.8,277,1265,267,1309,234.7C1352.7,203,1396,149,1418,122.7L1440,96L1440,0L1418.2,0C1396.4,0,1353,0,1309,0C1265.5,0,1222,0,1178,0C1134.5,0,1091,0,1047,0C1003.6,0,960,0,916,0C872.7,0,829,0,785,0C741.8,0,698,0,655,0C610.9,0,567,0,524,0C480,0,436,0,393,0C349.1,0,305,0,262,0C218.2,0,175,0,131,0C87.3,0,44,0,22,0L0,0Z"
               ></path>
             </svg>
-            <Col md={5} className="mt-4">
+            <Col md={6} s={8} className="mt-4">
               <Card className="border-0 shadow-lg">
                 <Card.Header>Add a To-Do</Card.Header>
                 <Card.Body>
@@ -220,22 +219,22 @@ export default function ToDoForm() {
               )}
             </Col>
           </Row>
+          <CardContainer
+            todos={activeSearch ? filteredTodos : todo}
+            deleteTodo={deleteTodo}
+            handleTaskFormSubmit={handleTaskFormSubmit}
+            handleTaskFormChange={handleTaskFormChange}
+            todoTask={todoTask}
+            todoPriority={todoPriority}
+            tasks={taskList}
+            handleTaskFormClose={handleTaskFormClose}
+            showTaskForm={showTaskForm}
+            setShowTaskForm={setShowTaskForm}
+            markTaskComplete={markTaskComplete}
+            deleteTask={deleteTask}
+          />
         </Container>
       </Jumbotron>
-      <CardContainer
-        todos={activeSearch ? filteredTodos : todo}
-        deleteTodo={deleteTodo}
-        handleTaskFormSubmit={handleTaskFormSubmit}
-        handleTaskFormChange={handleTaskFormChange}
-        todoTask={todoTask}
-        todoPriority={todoPriority}
-        tasks={taskList}
-        handleTaskFormClose={handleTaskFormClose}
-        showTaskForm={showTaskForm}
-        setShowTaskForm={setShowTaskForm}
-        markTaskComplete={markTaskComplete}
-        deleteTask={deleteTask}
-      />
     </>
   );
 }

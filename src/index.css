@@ -1,12 +1,19 @@
 * {
-  font-family: "Lato" !important;
-  font-weight: 400;
+  font-family: "Karla" !important;
 }
 
 .navbar {
   background-color: #ef476f;
 }
 
+.navbar-brand {
+  font-size: 1.5em;
+}
+
+.navbar-brand,
+.card-header {
+  font-weight: 600;
+}
 .btn-primary-outline {
   background-color: transparent;
   border-color: transparent;
@@ -29,9 +36,10 @@
   background-color: white;
 }
 
-.jumbotron,
+.container-fluid,
 .card-container {
-  background-color: whitesmoke;
+  height: 100vh;
+  background-color: rgb(252, 250, 250);
 }
 
 .card-header {
