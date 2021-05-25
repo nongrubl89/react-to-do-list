@@ -181,14 +181,14 @@ export default function ToDoForm() {
                       />
                     </Form.Group>
                     <Button
-                      variant="primary"
+                      // variant="primary"
                       type="submit"
                       className="button-block mr-1"
                     >
                       Submit
                     </Button>
                     <Button
-                      variant="outline-primary"
+                      // variant="outline-primary"
                       className="button-block"
                       onClick={() => setShowSearch(!showSearch)}
                     >

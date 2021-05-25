@@ -4,7 +4,7 @@ import { Modal, Button, ListGroup, Dropdown } from "react-bootstrap";
 export default function TaskFormModal(props) {
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <Button
-      className="btn-primary-outline"
+      className="btn-primary-outline bg-white"
       ref={ref}
       onClick={(e) => {
         e.preventDefault();

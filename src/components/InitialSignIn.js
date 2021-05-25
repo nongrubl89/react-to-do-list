@@ -4,6 +4,7 @@ import firebase from "firebase";
 import { FirebaseAuth } from "react-firebaseui";
 import { AuthContext } from "../services/context";
 import { Redirect } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 export default function InitialSignIn() {
   //get the user state from the context
@@ -24,10 +25,19 @@ export default function InitialSignIn() {
       {!!user ? (
         <Redirect to={{ pathname: "/" }} />
       ) : (
-        <div>
-          <p>Please Sign In</p>
-          <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-        </div>
+        <Modal.Dialog>
+          <Modal.Header closeButton>
+            <Modal.Title>Sign In</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <FirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary">Close</Button>
+          </Modal.Footer>
+        </Modal.Dialog>
       )}
     </div>
   );
