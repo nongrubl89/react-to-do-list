@@ -2,10 +2,12 @@ import { React, useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import ToDoForm from "./ToDoForm";
 import { AuthContext } from "../services/context.js";
+import { ModalContext } from "../services/modalcontext";
 import { app } from "../services/config";
 
 export default function Navigation() {
   const { user } = useContext(AuthContext);
+  const [modalState, setModalState] = useContext(ModalContext);
   return (
     <>
       <Navbar expand="lg">
@@ -22,7 +24,11 @@ export default function Navigation() {
               </Nav.Link>
             </>
           ) : (
-            <Nav.Link className="text-dark" href="/signin">
+            <Nav.Link
+              className="text-dark"
+              href="/signin"
+              onClick={() => setModalState({ ...modalState, modal: true })}
+            >
               Sign In
             </Nav.Link>
           )}
