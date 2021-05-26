@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "../App.css";
 import firebase from "firebase";
 import { FirebaseAuth } from "react-firebaseui";
@@ -27,7 +27,6 @@ export default function InitialSignIn() {
     history.push(`/`);
   };
 
-  //if user exists or signed in, we redirect the page to home, else display the sign in methods with FirebaseAuth
   return (
     <div>
       {!!user ? (
