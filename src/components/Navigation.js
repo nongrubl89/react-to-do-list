@@ -12,7 +12,8 @@ export default function Navigation() {
     <>
       <Navbar expand="lg">
         <Navbar.Brand bg="dark">To-Do List</Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Toggle aria-controls="navb" />
+        <Navbar.Collapse className="justify-content-end" id="navb">
           {!!user ? (
             <>
               <Nav.Link className="text-dark">{user.displayName}</Nav.Link>
