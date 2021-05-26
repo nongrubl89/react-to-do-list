@@ -9,7 +9,7 @@ function App() {
   return (
     <AuthProvider>
       <ModalProvider>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Navigation />
           <Switch>
             <Route path="/signin" exact component={InitialSignIn} />
