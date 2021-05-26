@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 
 export default function SearchBar(props) {
   return (
-    <Form>
+    <Form className="pt-3">
       <Form.Group controlId="search">
         <Form.Control
           type="text"
